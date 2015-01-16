@@ -10,3 +10,6 @@ require "sax-machine"
 
 # Spec::Runner.configure do |config|
 # end
+RSpec.configure do |config|
+  config.mock_framework = :rspec
+end

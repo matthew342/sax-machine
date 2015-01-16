@@ -2,7 +2,7 @@ module SAXMachine
   class SAXConfig
     
     class ElementConfig
-      attr_reader :name, :setter, :data_class, :collection
+      attr_reader :name, :setter, :data_class, :data_class_args, :collection
       
       def initialize(name, options)
         @name = name.to_s
@@ -24,6 +24,7 @@ module SAXMachine
           @setter = "#{@as}="
         end
         @data_class = options[:class]
+        @data_class_args = options[:class_args]
         @required = options[:required]
       end
 
@@ -32,7 +33,7 @@ module SAXMachine
       end
 
       def to_s
-        "name: #{@name} dataclass: #{@data_class} setter: #{@setter} required: #{@required} value: #{@value} as:#{@as} collection: #{@collection} with: #{@with}"
+        "name: #{@name} dataclass: #{@data_class} dataclassargs: #{@data_class_args} setter: #{@setter} required: #{@required} value: #{@value} as:#{@as} collection: #{@collection} with: #{@with}"
       end
 
       def column

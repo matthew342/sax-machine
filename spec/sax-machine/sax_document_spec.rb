@@ -45,13 +45,38 @@ describe "SAXMachine" do
           @klass.data_class(:date).should == DateTime
         end
       end
+      describe "the class_args attribute" do
+        before(:each) do
+          stub_const 'SecondLevelClass', Class.new
+          SecondLevelClass.class_eval{
+            def initialize(arg_1)
+              super
+              @arg = arg_1
+            end
+          }
+          SecondLevelClass.class_eval{
+            def arg
+              @arg
+            end
+          }
+          @klass = Class.new do
+            include SAXMachine
+            element :elem, :class => SecondLevelClass, :class_args => 'myargument'
+          end
+          @document = @klass.new
+          @document.elem = @klass_l2
+        end
+        it "should be available" do
+          @klass.data_class_args(:elem).should == 'myargument'
+        end
+      end
       describe "the required attribute" do
         it "should be available" do
           @klass = Class.new do
             include SAXMachine
             element :date, :required => true
           end
-          @klass.required?(:date).should be_true
+          @klass.required?(:date).should == true
         end
       end
 

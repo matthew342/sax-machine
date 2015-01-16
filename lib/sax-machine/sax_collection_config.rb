@@ -7,6 +7,7 @@ module SAXMachine
       def initialize(name, options)
         @name   = name.to_s
         @class  = options[:class]
+        @class_args = options[:class_args]
         @as     = options[:as].to_s
         
         if options.has_key?(:with)
@@ -31,6 +32,10 @@ module SAXMachine
       def data_class
         @class || @name
       end      
+      
+      def data_class_args
+        @class_args
+      end
       
     protected
       

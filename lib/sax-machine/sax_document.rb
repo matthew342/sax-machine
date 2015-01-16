@@ -63,6 +63,10 @@ module SAXMachine
       column(sym).data_class
     end
 
+    def data_class_args(sym)
+      column(sym).data_class_args
+    end
+    
     def required?(sym)
       column(sym).required?
     end

@@ -28,7 +28,11 @@ module SAXMachine
         
       if sax_config
         if collection_config = sax_config.collection_config(name, attrs)
-          stack.push [object = collection_config.data_class.new, collection_config]
+          if collection_config.data_class_args == nil
+            stack.push [object = collection_config.data_class.new, collection_config]
+          else
+            stack.push [object = collection_config.data_class.new(collection_config.data_class_args), collection_config]
+          end
           sax_config = object.class.sax_config
 
           if (attribute_config = object.class.respond_to?(:sax_config) && object.class.sax_config.attribute_configs_for_element(attrs))
